@@ -9,7 +9,7 @@ export async function sendToNtfy(product: ProductDB, shopifyBaseUrl: string, env
 			{
 				action: 'view',
 				label: 'View Product',
-				url: shopifyBaseUrl + '/' + product.handle,
+				url: shopifyBaseUrl + '/products/' + product.handle,
 			},
 		],
 	};
