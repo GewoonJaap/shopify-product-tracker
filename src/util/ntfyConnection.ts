@@ -6,7 +6,7 @@ import { productUrlHelper } from './shopify/shopifyHelpers';
 export async function sendToNtfy(product: ProductDB, store: ShopifyStoreConfig, env: Bindings) {
 	const bodyObject = {
 		topic: env.NTFY_TOPIC,
-		message: `Product ${product.title} is now available in the ${store.FRIENDLY_NAME} store.`,
+		message: `${product.title}, is now available in the ${store.FRIENDLY_NAME}.`,
 		actions: [
 			{
 				action: 'view',
@@ -19,7 +19,7 @@ export async function sendToNtfy(product: ProductDB, store: ShopifyStoreConfig, 
 		method: 'POST', // PUT works too
 		body: JSON.stringify(bodyObject),
 		headers: {
-			Title: `Product ${product.title} is now available in the ${store.FRIENDLY_NAME} store.`,
+			Title: `${product.title}, is now available in the ${store.FRIENDLY_NAME}.`,
 			Priority: 'urgent',
 			Tags: 'warning',
 			Authorization: 'Bearer ' + env.NTFY_BEARER,

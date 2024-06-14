@@ -31,34 +31,27 @@ export class ShopifyProductScraper {
 				if (!productInDB) {
 					await saveProductToDb(mappedProduct, this.env.productsDB);
 					await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
-				} else {
-					if (
-						productInDB.available !== variant.available ||
-						productInDB.price !== variant.price ||
-						productInDB.title !== product.title ||
-						productInDB.updated_at !== product.updated_at ||
-						productInDB.created_at !== product.created_at ||
-						productInDB.published_at !== product.published_at
-					) {
-						productInDB.available = variant.available;
-						productInDB.price = variant.price;
-						productInDB.title = product.title;
-						productInDB.updated_at = product.updated_at;
-						productInDB.created_at = product.created_at;
-						productInDB.published_at = product.published_at;
-
+				} else if (
+					productInDB.available != mappedProduct.available ||
+					productInDB.price != mappedProduct.price ||
+					productInDB.title != mappedProduct.title ||
+					productInDB.updated_at != mappedProduct.updated_at ||
+					productInDB.created_at != mappedProduct.created_at ||
+					productInDB.published_at != mappedProduct.published_at
+				)
+					 {
 						await updateProductById(id, mappedProduct, this.env.productsDB);
 						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
 					}
 				}
 			}
 		}
-	}
+	
 
 	private mapToProductDataModel(product: Product, variant: Variant): ProductDB {
 		return {
 			productId: product.id + '-' + variant.id,
-			title: product.title,
+			title: this.titleMapper(product, variant),
 			handle: product.handle,
 			published_at: product.published_at,
 			created_at: product.created_at,
@@ -67,6 +60,13 @@ export class ShopifyProductScraper {
 			available: variant.available,
 			shopifyStore: this.shopifyStore.URL,
 		};
+	}
+
+	private titleMapper(product: Product, variant: Variant): string {
+		if(variant.title && variant.title.toLowerCase() != "default title") {
+			return product.title + " - " + variant.title;
+		}
+		return product.title;
 	}
 
 	private async getProducts(): Promise<Product[]> {
