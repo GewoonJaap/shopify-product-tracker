@@ -5,7 +5,7 @@ import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
 import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollectionResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
-import { getProductFromDBByProductId, getProductsFromDbByIds, saveProductToDb, updateProductById } from '../dbConnection';
+import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../dbConnection';
 import { ProductDB } from '../interface/ProductDb';
 import { sendToNtfy } from '../ntfyConnection';
 
@@ -29,10 +29,7 @@ export class ShopifyProductScraper {
 			// if product is already in db, check if it is available
 
 			// get all products from db batched
-			const dbProducts = await getProductsFromDbByIds(
-				products.map(p => p.variants.map(v => this.mapProductId(p, v))).flat(),
-				this.env.productsDB
-			);
+			const dbProducts = await getProductsByShopifyStore(this.shopifyStore.URL, this.env.productsDB);
 
 			for (const product of products) {
 				for (const variant of product.variants) {

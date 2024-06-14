@@ -36,9 +36,8 @@ export async function getAllProductsFromDb(productDB: D1Database): Promise<Produ
 	return results as unknown as ProductDB[];
 }
 
-export async function getProductsFromDbByIds(productIds: string[], productDB: D1Database): Promise<ProductDB[]> {
-	const ids = productIds.map(id => `'${id}'`).join(',');
-	const { results } = await productDB.prepare(`SELECT * FROM product WHERE productId IN (?)`).bind(ids).all();
+export async function getProductsByShopifyStore(shopifyStore: string, productDB: D1Database): Promise<ProductDB[]> {
+	const { results } = await productDB.prepare(`SELECT * FROM product WHERE shopifyStore = ?`).bind(shopifyStore).all();
 
 	return results as unknown as ProductDB[];
 }
