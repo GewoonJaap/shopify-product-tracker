@@ -8,6 +8,7 @@ import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
 import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../dbConnection';
 import { ProductDB } from '../interface/ProductDb';
 import { sendToNtfy } from '../ntfyConnection';
+import { ExtendedProductDb } from '../interface/ExtendedProductDb';
 
 export class ShopifyProductScraper {
 	private shopifyStore: ShopifyStoreConfig;
@@ -52,10 +53,11 @@ export class ShopifyProductScraper {
 		}
 	}
 
-	private mapToProductDataModel(product: Product, variant: Variant): ProductDB {
+	private mapToProductDataModel(product: Product, variant: Variant): ExtendedProductDb {
 		return {
 			productId: this.mapProductId(product, variant),
 			title: this.titleMapper(product, variant),
+			bodyHtml: product.body_html,
 			handle: product.handle,
 			published_at: product.published_at,
 			created_at: product.created_at,
