@@ -87,13 +87,13 @@ export class ShopifyProductScraper {
 			? `${this.shopifyStore.URL}/collections/${collection}` + SHOPIFY_STORES.PRODUCTS_URL
 			: this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL;
 		console.log('Making a request to', finalUrl);
-		const reponse = await fetch(finalUrl, {
+		const response = await fetch(finalUrl, {
 			headers: {
 				'Content-Type': 'application/json',
 				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
 			},
 		});
-		const data = (await reponse.json()) as ShopifyProductResponse;
+		const data = (await response.json()) as ShopifyProductResponse;
 		return data.products;
 	}
 }
