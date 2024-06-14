@@ -1,3 +1,5 @@
+import { ShopifyStoreConfig } from "./types/shopify/shopifyStoreConfig";
+
 export const SHOPIFY_STORES = {
     STORES: [
         {
@@ -5,6 +7,6 @@ export const SHOPIFY_STORES = {
             FRIENDLY_NAME: 'Taylor Swift - UK Store',
             ENABLED: true
         }
-    ],
+    ] as ShopifyStoreConfig[],
     PRODUCTS_URL: '/products.json',
 }

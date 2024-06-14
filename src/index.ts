@@ -14,7 +14,8 @@ app.notFound(c => c.text('Not found', 404));
 
 (app as any).scheduled = async (event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) => {
 		for(const store of SHOPIFY_STORES.STORES){
-		await new ShopifyProductScraper(store.URL, env).scrapeProducts();
+			if(!store.ENABLED) continue;
+		await new ShopifyProductScraper(store, env).scrapeProducts();
 		}
 };
 

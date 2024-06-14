@@ -2,16 +2,17 @@ import { SHOPIFY_STORES } from "../../const";
 import { Bindings } from "../../types/bindings";
 import { Product, Variant } from "../../types/shopify/shopifyProduct";
 import { ShopifyProductResponse } from "../../types/shopify/shopifyProductResponse";
+import { ShopifyStoreConfig } from "../../types/shopify/shopifyStoreConfig";
 import { getProductFromDBByProductId, saveProductToDb, updateProductById } from "../dbConnection";
 import { ProductDB } from "../interface/ProductDb";
 import { sendToNtfy } from "../ntfyConnection";
 
 export class ShopifyProductScraper {
-    private shopifyStoreUrl: string;
+    private shopifyStore: ShopifyStoreConfig;
     private env: Bindings;
 
-    public constructor(shopifyStoreUrl: string, env: Bindings) {
-        this.shopifyStoreUrl = shopifyStoreUrl;
+    public constructor(shopifyStore: ShopifyStoreConfig, env: Bindings) {
+        this.shopifyStore = shopifyStore;
         this.env = env;
     }
 
@@ -29,7 +30,7 @@ export class ShopifyProductScraper {
         const productInDB = await getProductFromDBByProductId(id, this.env.productsDB);
         if(!productInDB) {
             await saveProductToDb(mappedProduct, this.env.productsDB);
-            await sendToNtfy(mappedProduct, this.shopifyStoreUrl, this.env);
+            await sendToNtfy(mappedProduct, this.shopifyStore.URL, this.env);
         }
         else{
             if(productInDB.available !== variant.available || productInDB.price !== variant.price || productInDB.title !== product.title){
@@ -38,7 +39,7 @@ export class ShopifyProductScraper {
                 productInDB.price = variant.price;
                 productInDB.title = product.title;
                 await updateProductById(id, mappedProduct, this.env.productsDB);
-                await sendToNtfy(mappedProduct, this.shopifyStoreUrl, this.env);
+                await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
             }
         
         }
@@ -56,13 +57,13 @@ export class ShopifyProductScraper {
             updated_at: product.updated_at,
             price: variant.price,
             available: variant.available,
-            shopifyStore: this.shopifyStoreUrl
+            shopifyStore: this.shopifyStore.URL
         }
     }
     
     private async getProducts(): Promise<Product[]> {
-        console.log('Making a request to', this.shopifyStoreUrl + SHOPIFY_STORES.PRODUCTS_URL);
-        const reponse = await fetch(this.shopifyStoreUrl + SHOPIFY_STORES.PRODUCTS_URL, {
+        console.log('Making a request to', this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL);
+        const reponse = await fetch(this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL, {
             headers: {
                 'Content-Type': 'application/json',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
