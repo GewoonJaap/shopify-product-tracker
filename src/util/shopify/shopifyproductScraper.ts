@@ -35,8 +35,6 @@ export class ShopifyProductScraper {
 					productInDB.available != mappedProduct.available ||
 					productInDB.price != mappedProduct.price ||
 					productInDB.title != mappedProduct.title ||
-					productInDB.updated_at != mappedProduct.updated_at ||
-					productInDB.created_at != mappedProduct.created_at ||
 					productInDB.published_at != mappedProduct.published_at
 				)
 					 {
