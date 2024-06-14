@@ -19,7 +19,7 @@ export async function sendToNtfy(product: ProductDB, store: ShopifyStoreConfig, 
 		method: 'POST', // PUT works too
 		body: JSON.stringify(bodyObject),
 		headers: {
-			Title: `Product ${product.title} is now available in the ${product.shopifyStore} store.`,
+			Title: `Product ${product.title} is now available in the ${store.FRIENDLY_NAME} store.`,
 			Priority: 'urgent',
 			Tags: 'warning',
 			Authorization: 'Bearer ' + env.NTFY_BEARER,
