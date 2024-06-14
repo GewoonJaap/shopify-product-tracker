@@ -36,15 +36,13 @@ export class ShopifyProductScraper {
 					productInDB.price != mappedProduct.price ||
 					productInDB.title != mappedProduct.title ||
 					productInDB.published_at != mappedProduct.published_at
-				)
-					 {
-						await updateProductById(id, mappedProduct, this.env.productsDB);
-						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
-					}
+				) {
+					await updateProductById(id, mappedProduct, this.env.productsDB);
+					await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
 				}
 			}
 		}
-	
+	}
 
 	private mapToProductDataModel(product: Product, variant: Variant): ProductDB {
 		return {
@@ -61,8 +59,8 @@ export class ShopifyProductScraper {
 	}
 
 	private titleMapper(product: Product, variant: Variant): string {
-		if(variant.title && variant.title.toLowerCase() != "default title") {
-			return product.title + " - " + variant.title;
+		if (variant.title && variant.title.toLowerCase() != 'default title') {
+			return product.title + ' - ' + variant.title;
 		}
 		return product.title;
 	}
