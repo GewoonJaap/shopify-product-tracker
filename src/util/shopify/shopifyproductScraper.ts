@@ -1,5 +1,6 @@
 import { SHOPIFY_STORES } from '../../const';
 import { Bindings } from '../../types/bindings';
+import { Collection } from '../../types/shopify/shopifyCollection';
 import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
@@ -17,28 +18,32 @@ export class ShopifyProductScraper {
 	}
 
 	public async scrapeProducts(): Promise<void> {
-		const products = await this.getProducts();
-		// check if product is already in db
-		// if not, save to db
+		const collections = await this.getCollections();
+		for (const collection of collections) {
+			const products = await this.getProducts(collection.handle);
 
-		// if product is already in db, check if it is available
+			// check if product is already in db
+			// if not, save to db
 
-		for (const product of products) {
-			for (const variant of product.variants) {
-				const mappedProduct = this.mapToProductDataModel(product, variant);
-				const id = product.id + '-' + variant.id;
-				const productInDB = await getProductFromDBByProductId(id, this.env.productsDB);
-				if (!productInDB) {
-					await saveProductToDb(mappedProduct, this.env.productsDB);
-					await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
-				} else if (
-					productInDB.available != mappedProduct.available ||
-					productInDB.price != mappedProduct.price ||
-					productInDB.title != mappedProduct.title ||
-					productInDB.published_at != mappedProduct.published_at
-				) {
-					await updateProductById(id, mappedProduct, this.env.productsDB);
-					await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
+			// if product is already in db, check if it is available
+
+			for (const product of products) {
+				for (const variant of product.variants) {
+					const mappedProduct = this.mapToProductDataModel(product, variant);
+					const id = product.id + '-' + variant.id;
+					const productInDB = await getProductFromDBByProductId(id, this.env.productsDB);
+					if (!productInDB) {
+						await saveProductToDb(mappedProduct, this.env.productsDB);
+						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
+					} else if (
+						productInDB.available != mappedProduct.available ||
+						productInDB.price != mappedProduct.price ||
+						productInDB.title != mappedProduct.title ||
+						productInDB.published_at != mappedProduct.published_at
+					) {
+						await updateProductById(id, mappedProduct, this.env.productsDB);
+						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
+					}
 				}
 			}
 		}
@@ -65,9 +70,24 @@ export class ShopifyProductScraper {
 		return product.title;
 	}
 
-	private async getProducts(): Promise<Product[]> {
-		console.log('Making a request to', this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL);
-		const reponse = await fetch(this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL, {
+	private async getCollections(): Promise<Collection[]> {
+		const response = await fetch(this.shopifyStore.URL + SHOPIFY_STORES.COLLECTIONS_URL, {
+			headers: {
+				'Content-Type': 'application/json',
+				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+			},
+		});
+
+		const data = (await response.json()) as Collection[];
+		return data;
+	}
+
+	private async getProducts(collection: string | undefined = undefined): Promise<Product[]> {
+		const finalUrl = collection
+			? `${this.shopifyStore.URL}/collections/${collection}` + SHOPIFY_STORES.PRODUCTS_URL
+			: this.shopifyStore.URL + SHOPIFY_STORES.PRODUCTS_URL;
+		console.log('Making a request to', finalUrl);
+		const reponse = await fetch(finalUrl, {
 			headers: {
 				'Content-Type': 'application/json',
 				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
