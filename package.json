@@ -23,6 +23,6 @@
 		"@cloudflare/workers-types": "^4.20240405.0",
 		"hono": "^4.4.6",
 		"postal-mime": "^2.2.5",
-		"uuid": "^9.0.1"
+		"uuid": "^10.0.0"
 	}
 }
