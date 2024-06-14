@@ -99,3 +99,6 @@ mode = "smart"
 # [[vectorize]]
 # binding = "MY_INDEX"
 # index_name = "my-index"
+
+[triggers]
+crons = ["*/1 * * * *"]

@@ -36,7 +36,7 @@ export async function getAllProductsFromDb(productDB: D1Database): Promise<Produ
 	return results as unknown as ProductDB[];
 }
 
-export async function updateProductById(productId: string, data: Partial<ProductDB>, productDB: D1Database): Promise<void> {
+export async function updateProductById(productId: string, data: ProductDB, productDB: D1Database): Promise<void> {
 	try {
 		await productDB
 			.prepare(
