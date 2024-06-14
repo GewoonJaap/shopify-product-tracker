@@ -36,6 +36,12 @@ export async function getAllProductsFromDb(productDB: D1Database): Promise<Produ
 	return results as unknown as ProductDB[];
 }
 
+export async function getProductsFromDbByIds(productIds: string[], productDB: D1Database): Promise<ProductDB[]> {
+	const { results } = await productDB.prepare(`SELECT * FROM product WHERE productId IN (?)`).bind(productIds).all();
+
+	return results as unknown as ProductDB[];
+}
+
 export async function updateProductById(productId: string, data: ProductDB, productDB: D1Database): Promise<void> {
 	try {
 		await productDB

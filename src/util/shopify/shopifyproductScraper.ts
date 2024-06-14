@@ -5,7 +5,7 @@ import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
 import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollectionResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
-import { getProductFromDBByProductId, saveProductToDb, updateProductById } from '../dbConnection';
+import { getProductFromDBByProductId, getProductsFromDbByIds, saveProductToDb, updateProductById } from '../dbConnection';
 import { ProductDB } from '../interface/ProductDb';
 import { sendToNtfy } from '../ntfyConnection';
 
@@ -28,11 +28,16 @@ export class ShopifyProductScraper {
 
 			// if product is already in db, check if it is available
 
+			// get all products from db batched
+			const dbProducts = await getProductsFromDbByIds(
+				products.map(p => p.variants.map(v => this.mapProductId(p, v))).flat(),
+				this.env.productsDB
+			);
+
 			for (const product of products) {
 				for (const variant of product.variants) {
 					const mappedProduct = this.mapToProductDataModel(product, variant);
-					const id = product.id + '-' + variant.id;
-					const productInDB = await getProductFromDBByProductId(id, this.env.productsDB);
+					const productInDB = dbProducts.find(p => p.productId == mappedProduct.productId);
 					if (!productInDB) {
 						await saveProductToDb(mappedProduct, this.env.productsDB);
 						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
@@ -52,7 +57,7 @@ export class ShopifyProductScraper {
 
 	private mapToProductDataModel(product: Product, variant: Variant): ProductDB {
 		return {
-			productId: product.id + '-' + variant.id,
+			productId: this.mapProductId(product, variant),
 			title: this.titleMapper(product, variant),
 			handle: product.handle,
 			published_at: product.published_at,
@@ -62,6 +67,10 @@ export class ShopifyProductScraper {
 			available: variant.available,
 			shopifyStore: this.shopifyStore.URL,
 		};
+	}
+
+	private mapProductId(product: Product, variant: Variant): string {
+		return product.id + '-' + variant.id;
 	}
 
 	private titleMapper(product: Product, variant: Variant): string {
