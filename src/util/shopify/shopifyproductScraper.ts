@@ -3,6 +3,7 @@ import { Bindings } from '../../types/bindings';
 import { Collection } from '../../types/shopify/shopifyCollection';
 import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
+import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollectionResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
 import { getProductFromDBByProductId, saveProductToDb, updateProductById } from '../dbConnection';
 import { ProductDB } from '../interface/ProductDb';
@@ -78,8 +79,8 @@ export class ShopifyProductScraper {
 			},
 		});
 
-		const data = (await response.json()) as Collection[];
-		return data;
+		const data = (await response.json()) as ShopifyCollectionResponse;
+		return data.collections;
 	}
 
 	private async getProducts(collection: string | undefined = undefined): Promise<Product[]> {
