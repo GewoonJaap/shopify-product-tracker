@@ -13,10 +13,10 @@ app.onError((err, c) => {
 app.notFound(c => c.text('Not found', 404));
 
 (app as any).scheduled = async (event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) => {
-		for(const store of SHOPIFY_STORES.STORES){
-			if(!store.ENABLED) continue;
+	for (const store of SHOPIFY_STORES.STORES) {
+		if (!store.ENABLED) continue;
 		await new ShopifyProductScraper(store, env).scrapeProducts();
-		}
+	}
 };
 
 export default app;

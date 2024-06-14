@@ -1,5 +1,5 @@
 export interface ShopifyStoreConfig {
-    URL: string;
-    FRIENDLY_NAME: string;
-    ENABLED: boolean;
+	URL: string;
+	FRIENDLY_NAME: string;
+	ENABLED: boolean;
 }

@@ -1,5 +1,5 @@
-import { Product } from "./shopifyProduct";
+import { Product } from './shopifyProduct';
 
 export interface ShopifyProductResponse {
-    products: Product[]
-  }
+	products: Product[];
+}

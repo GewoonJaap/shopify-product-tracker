@@ -1,7 +1,7 @@
-import { Bindings } from "../types/bindings";
-import { ShopifyStoreConfig } from "../types/shopify/shopifyStoreConfig";
-import { ProductDB } from "./interface/ProductDb";
-import { productUrlHelper } from "./shopify/shopifyHelpers";
+import { Bindings } from '../types/bindings';
+import { ShopifyStoreConfig } from '../types/shopify/shopifyStoreConfig';
+import { ProductDB } from './interface/ProductDb';
+import { productUrlHelper } from './shopify/shopifyHelpers';
 
 export async function sendToNtfy(product: ProductDB, store: ShopifyStoreConfig, env: Bindings) {
 	const bodyObject = {
