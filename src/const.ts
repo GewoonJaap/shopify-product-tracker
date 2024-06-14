@@ -9,4 +9,5 @@ export const SHOPIFY_STORES = {
 		},
 	] as ShopifyStoreConfig[],
 	PRODUCTS_URL: '/products.json',
+	COLLECTIONS_URL: '/collections.json',
 };
