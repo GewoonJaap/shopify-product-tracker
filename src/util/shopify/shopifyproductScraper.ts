@@ -47,7 +47,7 @@ export class ShopifyProductScraper {
 						productInDB.title != mappedProduct.title ||
 						productInDB.published_at != mappedProduct.published_at
 					) {
-						await updateProductById(id, mappedProduct, this.env.productsDB);
+						await updateProductById(mappedProduct.productId, mappedProduct, this.env.productsDB);
 						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
 					}
 				}
