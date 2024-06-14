@@ -33,11 +33,15 @@ export class ShopifyProductScraper {
             await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
         }
         else{
-            if(productInDB.available !== variant.available || productInDB.price !== variant.price || productInDB.title !== product.title){
+            if(productInDB.available !== variant.available || productInDB.price !== variant.price || productInDB.title !== product.title || productInDB.updated_at !== product.updated_at || productInDB.created_at !== product.created_at || productInDB.published_at !== product.published_at){
                 
                 productInDB.available = variant.available;
                 productInDB.price = variant.price;
                 productInDB.title = product.title;
+                productInDB.updated_at = product.updated_at;
+                productInDB.created_at = product.created_at;
+                productInDB.published_at = product.published_at;
+                
                 await updateProductById(id, mappedProduct, this.env.productsDB);
                 await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
             }
