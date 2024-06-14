@@ -1,5 +1,6 @@
 import { Bindings } from "../types/bindings";
 import { ProductDB } from "./interface/ProductDb";
+import { productUrlHelper } from "./shopify/shopifyHelpers";
 
 export async function sendToNtfy(product: ProductDB, shopifyBaseUrl: string, env: Bindings) {
 	const bodyObject = {
@@ -9,7 +10,7 @@ export async function sendToNtfy(product: ProductDB, shopifyBaseUrl: string, env
 			{
 				action: 'view',
 				label: 'View Product',
-				url: shopifyBaseUrl + '/products/' + product.handle,
+				url: productUrlHelper(shopifyBaseUrl, product.handle),
 			},
 		],
 	};
