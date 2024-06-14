@@ -61,6 +61,7 @@ export class ShopifyProductScraper {
     }
     
     private async getProducts(): Promise<Product[]> {
+        console.log('Making a request to', this.shopifyStoreUrl + SHOPIFY_STORES.PRODUCTS_URL);
         const reponse = await fetch(this.shopifyStoreUrl + SHOPIFY_STORES.PRODUCTS_URL, {
             headers: {
                 'Content-Type': 'application/json',
