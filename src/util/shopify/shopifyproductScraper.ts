@@ -30,7 +30,7 @@ export class ShopifyProductScraper {
         const productInDB = await getProductFromDBByProductId(id, this.env.productsDB);
         if(!productInDB) {
             await saveProductToDb(mappedProduct, this.env.productsDB);
-            await sendToNtfy(mappedProduct, this.shopifyStore.URL, this.env);
+            await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
         }
         else{
             if(productInDB.available !== variant.available || productInDB.price !== variant.price || productInDB.title !== product.title){
