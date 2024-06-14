@@ -27,6 +27,6 @@ export const SHOPIFY_STORES = {
 };
 
 export const NTFY = {
-	NORMAL_PRIORITY: 'normal',
+	NORMAL_PRIORITY: 'high',
 	URGENT_PRIORITY: 'urgent',
 };
