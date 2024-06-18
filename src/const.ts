@@ -21,6 +21,7 @@ export const SHOPIFY_STORES = {
 				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
 			},
 			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/taylor-swift/taylor-swift.jpg',
+			NTFY_TOPIC: 'taylor-swift-uk',
 		},
 		{
 			URL: 'https://ts-merchandise-m.myshopify.com',
@@ -31,6 +32,18 @@ export const SHOPIFY_STORES = {
 				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
 			},
 			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/taylor-swift/taylor-swift.jpg',
+			NTFY_TOPIC: 'taylor-swift-us',
+		},
+		{
+			URL: 'https://de-sabrina-carpenter-prod.myshopify.com',
+			FRIENDLY_NAME: 'Sabrina Carpenter - DE Store',
+			ENABLED: true,
+			NOTIFICATION_PRIORITY_SETTINGS: {
+				VERY_IMPORTANT: [],
+				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
+			},
+			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/sabrina-carpenter/sabrina-carpenter.jpg',
+			NTFY_TOPIC: 'sabrina-carpenter-de',
 		},
 	] as ShopifyStoreConfig[],
 	GLOBAL_NOTIFICATION_PRIORITY_SETTINGS: {

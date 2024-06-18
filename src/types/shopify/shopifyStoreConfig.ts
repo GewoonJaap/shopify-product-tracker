@@ -6,6 +6,7 @@ export interface ShopifyStoreConfig {
 	ENABLED: boolean;
 	NOTIFICATION_PRIORITY_SETTINGS: NotificationPrioritySettingsConfig;
 	DEFAULT_ICON: string;
+	NTFY_TOPIC: string;
 }
 
 export interface NotificationPrioritySettingsConfig {

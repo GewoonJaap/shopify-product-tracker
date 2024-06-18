@@ -35,27 +35,40 @@ export async function sendToNtfy(
 				label: 'View Product',
 				url: productUrlHelper(store.URL, product.handle),
 			},
-			{
-				action: 'view',
-				label: 'Add to cart',
-				url: productCartUrlHelper(store.URL, shopifyVariant.id),
-			},
 		],
 	};
-	await fetch(env.NTFY_URL, {
+
+	if (product.available) {
+		bodyObject.actions.push({
+			action: 'view',
+			label: 'Add to cart',
+			url: productCartUrlHelper(store.URL, shopifyVariant.id),
+		});
+	}
+
+	const headers = {
+		Title: renderTemplateString(notificationMessage.MESSAGE, {
+			PRODUCT_TITLE: product.title,
+			STORE_NAME: store.FRIENDLY_NAME,
+		}),
+		Icon: getIcon(shopifyProduct, store),
+		Attach: getIcon(shopifyProduct, store),
+		Priority: getPriorityForProductNotification(product, store, notificationMessage),
+		Tags: 'warning',
+		Authorization: 'Bearer ' + env.NTFY_BEARER,
+	};
+
+	await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	//now also post to store topic
+	bodyObject.topic = store.NTFY_TOPIC;
+	await postToNtfy(env.NTFY_URL, bodyObject, headers);
+}
+
+async function postToNtfy(url: string, body: Record<string, unknown>, headers: Record<string, string>): Promise<void> {
+	await fetch(url, {
 		method: 'POST', // PUT works too
-		body: JSON.stringify(bodyObject),
-		headers: {
-			Title: renderTemplateString(notificationMessage.MESSAGE, {
-				PRODUCT_TITLE: product.title,
-				STORE_NAME: store.FRIENDLY_NAME,
-			}),
-			Icon: getIcon(shopifyProduct, store),
-			Attach: getIcon(shopifyProduct, store),
-			Priority: getPriorityForProductNotification(product, store, notificationMessage),
-			Tags: 'warning',
-			Authorization: 'Bearer ' + env.NTFY_BEARER,
-		},
+		body: JSON.stringify(body),
+		headers,
 	});
 }
 
