@@ -38,7 +38,7 @@ export class ShopifyProductScraper {
 					const productInDB = dbProducts.find(p => p.productId == mappedProduct.productId);
 					if (!productInDB) {
 						await saveProductToDb(mappedProduct, this.env.productsDB);
-						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
+						await sendToNtfy(mappedProduct, this.shopifyStore, this.env, true, product, variant);
 					} else if (
 						productInDB.available != mappedProduct.available ||
 						productInDB.price != mappedProduct.price ||
@@ -46,7 +46,7 @@ export class ShopifyProductScraper {
 						productInDB.published_at != mappedProduct.published_at
 					) {
 						await updateProductById(mappedProduct.productId, mappedProduct, this.env.productsDB);
-						await sendToNtfy(mappedProduct, this.shopifyStore, this.env);
+						await sendToNtfy(mappedProduct, this.shopifyStore, this.env, false, product, variant);
 					}
 				}
 			}

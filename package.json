@@ -21,7 +21,9 @@
 	},
 	"dependencies": {
 		"@cloudflare/workers-types": "^4.20240605.0",
+		"@types/mustache": "^4.2.5",
 		"hono": "^4.4.6",
+		"mustache": "^4.2.0",
 		"postal-mime": "^2.2.5",
 		"uuid": "^10.0.0"
 	}
