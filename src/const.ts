@@ -48,6 +48,18 @@ export const SHOPIFY_STORES = {
 			NTFY_TOPIC: 'sabrina-carpenter-de',
 			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
+		{
+			URL: 'https://sabrina-carpenter-official.myshopify.com',
+			FRIENDLY_NAME: 'Sabrina Carpenter - US Store',
+			ENABLED: true,
+			NOTIFICATION_PRIORITY_SETTINGS: {
+				VERY_IMPORTANT: [],
+				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
+			},
+			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/sabrina-carpenter/sabrina-carpenter.jpg',
+			NTFY_TOPIC: 'sabrina-carpenter-us',
+			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
+		},
 	] as ShopifyStoreConfig[],
 	GLOBAL_NOTIFICATION_PRIORITY_SETTINGS: {
 		VERY_IMPORTANT: ['signed', 'limited edition', 'exclusive', 'vinyl'],
