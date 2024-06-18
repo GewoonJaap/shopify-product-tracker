@@ -5,8 +5,7 @@ import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
 import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollectionResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
-import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../dbConnection';
-import { ProductDB } from '../interface/ProductDb';
+import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../db/dbConnection';
 import { sendToNtfy } from '../ntfy/ntfyConnection';
 import { ExtendedProductDb } from '../interface/ExtendedProductDb';
 
