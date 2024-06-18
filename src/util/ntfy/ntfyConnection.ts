@@ -68,6 +68,12 @@ export async function sendToNtfy(
 	}
 }
 
+/**
+ * @param {string} url - The url to post to
+ * @param {Record<string, unknown>} body - The body of the post
+ * @param {Record<string, string>} headers - The headers of the post
+ * @returns {Promise<void>} - Returns a promise
+ */
 async function postToNtfy(url: string, body: Record<string, unknown>, headers: Record<string, string>): Promise<void> {
 	await fetch(url, {
 		method: 'POST', // PUT works too
@@ -76,6 +82,11 @@ async function postToNtfy(url: string, body: Record<string, unknown>, headers: R
 	});
 }
 
+/**
+ * @param {ShopifyStoreConfig} store - The store to send a notification for
+ * @param {ExtendedProductDb} product - The product to send a notification for
+ * @returns {string} Returns the tags for the product notification
+ */
 function getTags(store: ShopifyStoreConfig, product: ExtendedProductDb): string {
 	let tags = [];
 	tags.push(store.FRIENDLY_NAME);
@@ -89,6 +100,11 @@ function getTags(store: ShopifyStoreConfig, product: ExtendedProductDb): string 
 	return tags.join(',');
 }
 
+/**
+ * @param {Product} shopifyProduct - The product to send a notification for
+ * @param {ShopifyStoreConfig} store - The store to send a notification for
+ * @returns {string} Returns the icon for the product notification
+ */
 function getIcon(shopifyProduct: Product, store: ShopifyStoreConfig): string {
 	return shopifyProduct.images[0]?.src ?? store.DEFAULT_ICON;
 }
