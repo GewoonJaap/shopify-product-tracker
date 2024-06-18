@@ -1,11 +1,11 @@
-import { NOTIFICATION_MESSAGES, NTFY, SHOPIFY_STORES } from '../const';
-import { Bindings } from '../types/bindings';
-import { NotificationMessageType } from '../types/notification/notificationMessageType';
-import { Product, Variant } from '../types/shopify/shopifyProduct';
-import { ShopifyStoreConfig } from '../types/shopify/shopifyStoreConfig';
-import { ExtendedProductDb } from './interface/ExtendedProductDb';
-import { productCartUrlHelper, productUrlHelper } from './shopify/shopifyHelpers';
-import { renderTemplateString } from './stringHelper/stringTemplateRenderer';
+import { NOTIFICATION_MESSAGES, NTFY, SHOPIFY_STORES } from '../../const';
+import { Bindings } from '../../types/bindings';
+import { NotificationMessageType } from '../../types/notification/notificationMessageType';
+import { Product, Variant } from '../../types/shopify/shopifyProduct';
+import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
+import { ExtendedProductDb } from '../interface/ExtendedProductDb';
+import { productCartUrlHelper, productUrlHelper } from '../shopify/shopifyHelpers';
+import { renderTemplateString } from '../stringHelper/stringTemplateRenderer';
 
 /**
  * @param {ExtendedProductDb} product - The product to send a notification for
@@ -58,10 +58,14 @@ export async function sendToNtfy(
 		Authorization: 'Bearer ' + env.NTFY_BEARER,
 	};
 
-	await postToNtfy(env.NTFY_URL, bodyObject, headers);
-	//now also post to store topic
-	bodyObject.topic = store.NTFY_TOPIC;
-	await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	if (store.NTFY_ANNOUNCE_TO_GLOBAL_TOPIC) {
+		bodyObject.topic = env.NTFY_TOPIC;
+		await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	}
+	if (store.NTFY_TOPIC) {
+		bodyObject.topic = store.NTFY_TOPIC;
+		await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	}
 }
 
 async function postToNtfy(url: string, body: Record<string, unknown>, headers: Record<string, string>): Promise<void> {

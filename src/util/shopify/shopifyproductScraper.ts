@@ -7,7 +7,7 @@ import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollection
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
 import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../dbConnection';
 import { ProductDB } from '../interface/ProductDb';
-import { sendToNtfy } from '../ntfyConnection';
+import { sendToNtfy } from '../ntfy/ntfyConnection';
 import { ExtendedProductDb } from '../interface/ExtendedProductDb';
 
 export class ShopifyProductScraper {
