@@ -1,4 +1,4 @@
-import { NOTIFICATION_MESSAGES, NTFY, SHOPIFY_STORES } from '../../const';
+import { NOTIFICATION_MESSAGES, NOTIFICATION_TAGS, NTFY, SHOPIFY_STORES } from '../../const';
 import { Bindings } from '../../types/bindings';
 import { NotificationMessageType } from '../../types/notification/notificationMessageType';
 import { Product, Variant } from '../../types/shopify/shopifyProduct';
@@ -54,7 +54,7 @@ export async function sendToNtfy(
 		Icon: getIcon(shopifyProduct, store),
 		Attach: getIcon(shopifyProduct, store),
 		Priority: getPriorityForProductNotification(product, store, notificationMessage),
-		Tags: 'warning',
+		Tags: getTags(store, product),
 		Authorization: 'Bearer ' + env.NTFY_BEARER,
 	};
 
@@ -74,6 +74,19 @@ async function postToNtfy(url: string, body: Record<string, unknown>, headers: R
 		body: JSON.stringify(body),
 		headers,
 	});
+}
+
+function getTags(store: ShopifyStoreConfig, product: ExtendedProductDb): string {
+	let tags = [];
+	tags.push(store.FRIENDLY_NAME);
+	NOTIFICATION_TAGS.TAGS.forEach(tag => {
+		if (tag.TEXT_TRIGGER.some(word => product.title.toLowerCase().includes(word.toLowerCase()))) {
+			tags.push(tag.NAME);
+		}
+	});
+	//unique tags only
+	tags = tags.filter((value, index, self) => self.indexOf(value) === index);
+	return tags.join(',');
 }
 
 function getIcon(shopifyProduct: Product, store: ShopifyStoreConfig): string {

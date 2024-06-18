@@ -71,3 +71,36 @@ export const NOTIFICATION_MESSAGES = {
 		PRIORITY: NTFY.LOW_PRIORITY,
 	} as NotificationMessageType,
 };
+
+export const NOTIFICATION_TAGS = {
+	TAGS: [
+		{
+			NAME: 'signed',
+			TEXT_TRIGGER: ['signed', 'signature'],
+		},
+		{
+			NAME: 'limited edition',
+			TEXT_TRIGGER: ['limited edition', 'limited', 'edition'],
+		},
+		{
+			NAME: 'exclusive',
+			TEXT_TRIGGER: ['exclusive'],
+		},
+		{
+			NAME: 'vinyl',
+			TEXT_TRIGGER: ['vinyl'],
+		},
+		{
+			NAME: 'cd',
+			TEXT_TRIGGER: ['cd'],
+		},
+		{
+			NAME: 'shirt',
+			TEXT_TRIGGER: ['shirt', 't-shirt', 'tee', 'hoodie', 'sweatshirt', 'sweater', 'jumper'],
+		},
+		{
+			NAME: 'pen',
+			TEXT_TRIGGER: ['pen', 'writing', 'stationary', 'signed', 'signature'],
+		},
+	],
+};
