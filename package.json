@@ -20,7 +20,7 @@
 		"wrangler": "^3.60.2"
 	},
 	"dependencies": {
-		"@cloudflare/workers-types": "^4.20240605.0",
+		"@cloudflare/workers-types": "^4.20240614.0",
 		"@types/mustache": "^4.2.5",
 		"hono": "^4.4.6",
 		"mustache": "^4.2.0",
