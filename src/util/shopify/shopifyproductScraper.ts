@@ -5,20 +5,31 @@ import { Product, Variant } from '../../types/shopify/shopifyProduct';
 import { ShopifyProductResponse } from '../../types/shopify/shopifyProductResponse';
 import { ShopifyCollectionResponse } from '../../types/shopify/shopifyCollectionResponse';
 import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
-import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../dbConnection';
-import { ProductDB } from '../interface/ProductDb';
-import { sendToNtfy } from '../ntfyConnection';
+import { getProductsByShopifyStore, saveProductToDb, updateProductById } from '../db/dbConnection';
+import { sendToNtfy } from '../ntfy/ntfyConnection';
 import { ExtendedProductDb } from '../interface/ExtendedProductDb';
 
+/**
+ * The shopify product scraper
+ */
 export class ShopifyProductScraper {
 	private shopifyStore: ShopifyStoreConfig;
 	private env: Bindings;
 
+	/**
+	 * Creates an instance of the shopify product scraper
+	 * @param {ShopifyStoreConfig} shopifyStore - The shopify store to scrape products from
+	 * @param {Bindings} env - The environment variables
+	 */
 	public constructor(shopifyStore: ShopifyStoreConfig, env: Bindings) {
 		this.shopifyStore = shopifyStore;
 		this.env = env;
 	}
 
+	/**
+	 * Scrapes the products from the shopify store
+	 * @returns {Promise<void>} - Returns a promise
+	 */
 	public async scrapeProducts(): Promise<void> {
 		const collections = await this.getCollections();
 		for (const collection of collections) {
@@ -53,6 +64,12 @@ export class ShopifyProductScraper {
 		}
 	}
 
+	/**
+	 * Maps the product and variant to an extended product data model
+	 * @param {Product} product - The product to map
+	 * @param {Variant} variant - The variant to map
+	 * @returns {ExtendedProductDb} - The mapped product data model
+	 */
 	private mapToProductDataModel(product: Product, variant: Variant): ExtendedProductDb {
 		return {
 			productId: this.mapProductId(product, variant),
@@ -68,10 +85,22 @@ export class ShopifyProductScraper {
 		};
 	}
 
+	/**
+	 * Maps the product and variant to a unique product id
+	 * @param {Product} product - The product to map
+	 * @param {Variant} variant - The variant to map
+	 * @returns {string} - The mapped product id
+	 */
 	private mapProductId(product: Product, variant: Variant): string {
 		return product.id + '-' + variant.id;
 	}
 
+	/**
+	 * Maps the product and variant to a unique title
+	 * @param {Product} product - The product to map
+	 * @param {Variant} variant - The variant to map
+	 * @returns {string} - The mapped title
+	 */
 	private titleMapper(product: Product, variant: Variant): string {
 		if (variant.title && variant.title.toLowerCase() != 'default title') {
 			return product.title + ' - ' + variant.title;
@@ -79,6 +108,10 @@ export class ShopifyProductScraper {
 		return product.title;
 	}
 
+	/**
+	 * Gets the collections from the shopify store
+	 * @returns {Promise<Collection[]>} - The collections
+	 */
 	private async getCollections(): Promise<Collection[]> {
 		const response = await fetch(this.shopifyStore.URL + SHOPIFY_STORES.COLLECTIONS_URL, {
 			headers: {
@@ -91,6 +124,11 @@ export class ShopifyProductScraper {
 		return data.collections;
 	}
 
+	/**
+	 * Gets the products from the shopify store
+	 * @param {string} collection - The collection to get the products from
+	 * @returns {Promise<Product[]>} - The products
+	 */
 	private async getProducts(collection: string | undefined = undefined): Promise<Product[]> {
 		const finalUrl = collection
 			? `${this.shopifyStore.URL}/collections/${collection}` + SHOPIFY_STORES.PRODUCTS_URL

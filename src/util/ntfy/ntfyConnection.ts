@@ -1,11 +1,11 @@
-import { NOTIFICATION_MESSAGES, NTFY, SHOPIFY_STORES } from '../const';
-import { Bindings } from '../types/bindings';
-import { NotificationMessageType } from '../types/notification/notificationMessageType';
-import { Product, Variant } from '../types/shopify/shopifyProduct';
-import { ShopifyStoreConfig } from '../types/shopify/shopifyStoreConfig';
-import { ExtendedProductDb } from './interface/ExtendedProductDb';
-import { productCartUrlHelper, productUrlHelper } from './shopify/shopifyHelpers';
-import { renderTemplateString } from './stringHelper/stringTemplateRenderer';
+import { NOTIFICATION_MESSAGES, NOTIFICATION_TAGS, NTFY, SHOPIFY_STORES } from '../../const';
+import { Bindings } from '../../types/bindings';
+import { NotificationMessageType } from '../../types/notification/notificationMessageType';
+import { Product, Variant } from '../../types/shopify/shopifyProduct';
+import { ShopifyStoreConfig } from '../../types/shopify/shopifyStoreConfig';
+import { ExtendedProductDb } from '../interface/ExtendedProductDb';
+import { productCartUrlHelper, productUrlHelper } from '../shopify/shopifyHelpers';
+import { renderTemplateString } from '../stringHelper/stringTemplateRenderer';
 
 /**
  * @param {ExtendedProductDb} product - The product to send a notification for
@@ -54,16 +54,26 @@ export async function sendToNtfy(
 		Icon: getIcon(shopifyProduct, store),
 		Attach: getIcon(shopifyProduct, store),
 		Priority: getPriorityForProductNotification(product, store, notificationMessage),
-		Tags: 'warning',
+		Tags: getTags(store, product),
 		Authorization: 'Bearer ' + env.NTFY_BEARER,
 	};
 
-	await postToNtfy(env.NTFY_URL, bodyObject, headers);
-	//now also post to store topic
-	bodyObject.topic = store.NTFY_TOPIC;
-	await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	if (store.NTFY_ANNOUNCE_TO_GLOBAL_TOPIC) {
+		bodyObject.topic = env.NTFY_TOPIC;
+		await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	}
+	if (store.NTFY_TOPIC) {
+		bodyObject.topic = store.NTFY_TOPIC;
+		await postToNtfy(env.NTFY_URL, bodyObject, headers);
+	}
 }
 
+/**
+ * @param {string} url - The url to post to
+ * @param {Record<string, unknown>} body - The body of the post
+ * @param {Record<string, string>} headers - The headers of the post
+ * @returns {Promise<void>} - Returns a promise
+ */
 async function postToNtfy(url: string, body: Record<string, unknown>, headers: Record<string, string>): Promise<void> {
 	await fetch(url, {
 		method: 'POST', // PUT works too
@@ -72,6 +82,29 @@ async function postToNtfy(url: string, body: Record<string, unknown>, headers: R
 	});
 }
 
+/**
+ * @param {ShopifyStoreConfig} store - The store to send a notification for
+ * @param {ExtendedProductDb} product - The product to send a notification for
+ * @returns {string} Returns the tags for the product notification
+ */
+function getTags(store: ShopifyStoreConfig, product: ExtendedProductDb): string {
+	let tags = [];
+	tags.push(store.FRIENDLY_NAME);
+	NOTIFICATION_TAGS.TAGS.forEach(tag => {
+		if (tag.TEXT_TRIGGER.some(word => product.title.toLowerCase().includes(word.toLowerCase()))) {
+			tags.push(tag.NAME);
+		}
+	});
+	//unique tags only
+	tags = tags.filter((value, index, self) => self.indexOf(value) === index);
+	return tags.join(',');
+}
+
+/**
+ * @param {Product} shopifyProduct - The product to send a notification for
+ * @param {ShopifyStoreConfig} store - The store to send a notification for
+ * @returns {string} Returns the icon for the product notification
+ */
 function getIcon(shopifyProduct: Product, store: ShopifyStoreConfig): string {
 	return shopifyProduct.images[0]?.src ?? store.DEFAULT_ICON;
 }

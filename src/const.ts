@@ -22,6 +22,7 @@ export const SHOPIFY_STORES = {
 			},
 			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/taylor-swift/taylor-swift.jpg',
 			NTFY_TOPIC: 'taylor-swift-uk',
+			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
 			URL: 'https://ts-merchandise-m.myshopify.com',
@@ -33,6 +34,7 @@ export const SHOPIFY_STORES = {
 			},
 			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/taylor-swift/taylor-swift.jpg',
 			NTFY_TOPIC: 'taylor-swift-us',
+			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
 			URL: 'https://de-sabrina-carpenter-prod.myshopify.com',
@@ -44,6 +46,7 @@ export const SHOPIFY_STORES = {
 			},
 			DEFAULT_ICON: 'https://shopify-tracker.ams3.cdn.digitaloceanspaces.com/sabrina-carpenter/sabrina-carpenter.jpg',
 			NTFY_TOPIC: 'sabrina-carpenter-de',
+			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 	] as ShopifyStoreConfig[],
 	GLOBAL_NOTIFICATION_PRIORITY_SETTINGS: {
@@ -67,4 +70,37 @@ export const NOTIFICATION_MESSAGES = {
 		MESSAGE: '{{PRODUCT_TITLE}}, is no longer available in the {{STORE_NAME}}.',
 		PRIORITY: NTFY.LOW_PRIORITY,
 	} as NotificationMessageType,
+};
+
+export const NOTIFICATION_TAGS = {
+	TAGS: [
+		{
+			NAME: 'signed',
+			TEXT_TRIGGER: ['signed', 'signature'],
+		},
+		{
+			NAME: 'limited edition',
+			TEXT_TRIGGER: ['limited edition', 'limited', 'edition'],
+		},
+		{
+			NAME: 'exclusive',
+			TEXT_TRIGGER: ['exclusive'],
+		},
+		{
+			NAME: 'vinyl',
+			TEXT_TRIGGER: ['vinyl'],
+		},
+		{
+			NAME: 'cd',
+			TEXT_TRIGGER: ['cd'],
+		},
+		{
+			NAME: 'shirt',
+			TEXT_TRIGGER: ['shirt', 't-shirt', 'tee', 'hoodie', 'sweatshirt', 'sweater', 'jumper'],
+		},
+		{
+			NAME: 'pen',
+			TEXT_TRIGGER: ['pen', 'writing', 'stationary', 'signed', 'signature'],
+		},
+	],
 };

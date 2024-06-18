@@ -1,5 +1,11 @@
-import { ProductDB } from './interface/ProductDb';
+import { ProductDB } from '../interface/ProductDb';
 
+/**
+ * Saves a product to the database
+ * @param {ProductDB} data - The product data
+ * @param {D1Database} productDB - The database connection
+ * @returns {Promise<void>} - Returns a promise
+ */
 export async function saveProductToDb(data: ProductDB, productDB: D1Database): Promise<void> {
 	try {
 		await productDB
@@ -24,24 +30,48 @@ export async function saveProductToDb(data: ProductDB, productDB: D1Database): P
 	}
 }
 
+/**
+ * Returns a product from the database by product ID
+ * @param {string} productId - The product ID
+ * @param {D1Database} productDB - The database connection
+ * @returns {Promise<ProductDB | null>} - Returns a promise
+ */
 export async function getProductFromDBByProductId(productId: string, productDB: D1Database): Promise<ProductDB | null> {
 	const result = await productDB.prepare(`SELECT * FROM product WHERE productId = ?`).bind(productId).first();
 
 	return result as unknown as ProductDB | null;
 }
 
+/**
+ * Returns all products from the database
+ * @param {D1Database} productDB - The database connection
+ * @returns {Promise<ProductDB[]>} - Returns a promise
+ */
 export async function getAllProductsFromDb(productDB: D1Database): Promise<ProductDB[]> {
 	const { results } = await productDB.prepare(`SELECT * FROM product`).all();
 
 	return results as unknown as ProductDB[];
 }
 
+/**
+ * Returns all products from the database by shopify store
+ * @param {string} shopifyStore - The shopify store
+ * @param {D1Database} productDB - The database connection
+ * @returns {Promise<ProductDB[]>} - Returns a promise
+ */
 export async function getProductsByShopifyStore(shopifyStore: string, productDB: D1Database): Promise<ProductDB[]> {
 	const { results } = await productDB.prepare(`SELECT * FROM product WHERE shopifyStore = ?`).bind(shopifyStore).all();
 
 	return results as unknown as ProductDB[];
 }
 
+/**
+ * Updates a product by product ID
+ * @param {string} productId - The product ID
+ * @param {ProductDB} data - The product data
+ * @param {D1Database} productDB - The database connection
+ * @returns {Promise<void>} - Returns a promise
+ */
 export async function updateProductById(productId: string, data: ProductDB, productDB: D1Database): Promise<void> {
 	try {
 		await productDB
