@@ -51,7 +51,7 @@ export const SHOPIFY_STORES = {
 		{
 			URL: 'https://sabrina-carpenter-official.myshopify.com',
 			FRIENDLY_NAME: 'Sabrina Carpenter - US Store',
-			ENABLED: true,
+			ENABLED: false,
 			NOTIFICATION_PRIORITY_SETTINGS: {
 				VERY_IMPORTANT: [],
 				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
@@ -63,7 +63,7 @@ export const SHOPIFY_STORES = {
 		{
 			URL: 'https://blood-records.myshopify.com',
 			FRIENDLY_NAME: 'Blood Records - Store',
-			ENABLED: true,
+			ENABLED: false,
 			NOTIFICATION_PRIORITY_SETTINGS: {
 				VERY_IMPORTANT: [],
 				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
