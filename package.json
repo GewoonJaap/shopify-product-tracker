@@ -12,7 +12,7 @@
 		"format:check": "prettier --loglevel debug --check \"**/*.{js,ts,json,less,css,md,html}\""
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.4.13",
+		"@cloudflare/vitest-pool-workers": "^0.4.16",
 		"@types/uuid": "^10.0.0",
 		"prettier": "^3.3.3",
 		"typescript": "^5.5.4",
