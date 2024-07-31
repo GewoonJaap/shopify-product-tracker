@@ -920,6 +920,24 @@ miniflare@3.20240718.0:
     youch "^3.2.2"
     zod "^3.22.3"
 
+miniflare@3.20240718.1:
+  version "3.20240718.1"
+  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-3.20240718.1.tgz#26ccb95be087cd99cd478dbf2e3a3d40f231bf45"
+  integrity sha512-mn3MjGnpgYvarCRTfz4TQyVyY8yW0zz7f8LOAPVai78IGC/lcVcyskZcuIr7Zovb2i+IERmmsJAiEPeZHIIKbA==
+  dependencies:
+    "@cspotcode/source-map-support" "0.8.1"
+    acorn "^8.8.0"
+    acorn-walk "^8.2.0"
+    capnp-ts "^0.7.0"
+    exit-hook "^2.2.1"
+    glob-to-regexp "^0.4.1"
+    stoppable "^1.1.0"
+    undici "^5.28.4"
+    workerd "1.20240718.0"
+    ws "^8.17.1"
+    youch "^3.2.2"
+    zod "^3.22.3"
+
 mlly@^1.2.0, mlly@^1.4.2:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.6.1.tgz#0983067dc3366d6314fc5e12712884e6978d028f"
@@ -1371,7 +1389,7 @@ workerd@1.20240718.0:
     "@cloudflare/workerd-linux-arm64" "1.20240718.0"
     "@cloudflare/workerd-windows-64" "1.20240718.0"
 
-wrangler@3.65.1, wrangler@^3.65.0:
+wrangler@3.65.1:
   version "3.65.1"
   resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.65.1.tgz#493bd92b504f9f056cd57bbe2d430797600c914b"
   integrity sha512-Z5NyrbpGMQCpim/6VnI1im0/Weh5+CU1sdep1JbfFxHjn/Jt9K+MeUq+kCns5ubkkdRx2EYsusB/JKyX2JdJ4w==
@@ -1391,6 +1409,31 @@ wrangler@3.65.1, wrangler@^3.65.0:
     selfsigned "^2.0.1"
     source-map "^0.6.1"
     unenv "npm:unenv-nightly@1.10.0-1717606461.a117952"
+    xxhash-wasm "^1.0.1"
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+wrangler@^3.67.1:
+  version "3.67.1"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.67.1.tgz#c9bb344b70c8c2106ad33f03beaa063dd5b49526"
+  integrity sha512-lLVJxq/OZMfntvZ79WQJNC1OKfxOCs6PLfogqDBuPFEQ3L/Mwqvd9IZ0bB8ahrwUN/K3lSdDPXynk9HfcGZxVw==
+  dependencies:
+    "@cloudflare/kv-asset-handler" "0.3.4"
+    "@esbuild-plugins/node-globals-polyfill" "^0.2.3"
+    "@esbuild-plugins/node-modules-polyfill" "^0.2.2"
+    blake3-wasm "^2.1.5"
+    chokidar "^3.5.3"
+    date-fns "^3.6.0"
+    esbuild "0.17.19"
+    miniflare "3.20240718.1"
+    nanoid "^3.3.3"
+    path-to-regexp "^6.2.0"
+    resolve "^1.22.8"
+    resolve.exports "^2.0.2"
+    selfsigned "^2.0.1"
+    source-map "^0.6.1"
+    unenv "npm:unenv-nightly@1.10.0-1717606461.a117952"
+    workerd "1.20240718.0"
     xxhash-wasm "^1.0.1"
   optionalDependencies:
     fsevents "~2.3.2"
