@@ -84,15 +84,15 @@ export const SHOPIFY_STORES = {
 export const NOTIFICATION_MESSAGES = {
 	PRODUCT_AVAILABLE_IN_STORE: {
 		MESSAGE: '{{PRODUCT_TITLE}}, is now available in the {{STORE_NAME}}.',
-		PRIORITY: NTFY.HIGH_PRIORITY,
+		PRIORITY: NTFY.MIN_PRIORITY,
 	} as NotificationMessageType,
 	PRODUCT_AVAILABLE_IN_STORE_FIRST_TIME: {
 		MESSAGE: '{{PRODUCT_TITLE}}, is now available in the {{STORE_NAME}} for the first time.',
-		PRIORITY: NTFY.URGENT_PRIORITY,
+		PRIORITY: NTFY.MIN_PRIORITY,
 	} as NotificationMessageType,
 	PRODUCT_UNAVAILABLE_IN_STORE: {
 		MESSAGE: '{{PRODUCT_TITLE}}, is no longer available in the {{STORE_NAME}}.',
-		PRIORITY: NTFY.LOW_PRIORITY,
+		PRIORITY: NTFY.MIN_PRIORITY,
 	} as NotificationMessageType,
 };
 
