@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@cloudflare/workers-types": "^4.20240806.0",
 		"@types/mustache": "^4.2.5",
-		"hono": "^4.5.5",
+		"hono": "^4.5.10",
 		"mustache": "^4.2.0",
 		"postal-mime": "^2.2.7",
 		"uuid": "^10.0.0"

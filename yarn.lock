@@ -802,10 +802,10 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
-hono@^4.5.5:
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.5.5.tgz#18090b0e6f16359f33b80658821697250a1147db"
-  integrity sha512-fXBXHqaVfimWofbelLXci8pZyIwBMkDIwCa4OwZvK+xVbEyYLELVP4DfbGaj1aEM6ZY3hHgs4qLvCO2ChkhgQw==
+hono@^4.5.10:
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.5.10.tgz#6ee874b54faffedaaa94a658c96e2cd4968ccea6"
+  integrity sha512-az6tdU1U8o/l0v8O37FIQuc+ER/TeD9vHt/qs8JnBDgMxw6Zu5L2AixUyHeXZNcu87r7iYo8Ey85R7IogOINKA==
 
 human-signals@^5.0.0:
   version "5.0.0"
