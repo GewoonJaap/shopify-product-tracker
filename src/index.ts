@@ -13,20 +13,10 @@ app.onError((err, c) => {
 app.notFound(c => c.text('Not found', 404));
 
 (app as any).scheduled = async (event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) => {
-	if (!env.WORKER_DOMAIN) {
-		for (const store of SHOPIFY_STORES.STORES) {
-			if (!store.ENABLED) continue;
-			await new ShopifyProductScraper(store, env).scrapeProducts();
-		}
-		return;
+	for (const store of SHOPIFY_STORES.STORES) {
+		if (!store.ENABLED) continue;
+		await new ShopifyProductScraper(store, env).scrapeProducts();
 	}
-
-	const fetchPromises = SHOPIFY_STORES.STORES.filter(store => store.ENABLED).map(store => {
-		const url = `https://${env.WORKER_DOMAIN}/scrape/${store.ID}`;
-		return fetch(url, { method: 'GET' });
-	});
-
-	await Promise.all(fetchPromises);
 };
 
 // HTTP endpoint to trigger scraping for a specific store
