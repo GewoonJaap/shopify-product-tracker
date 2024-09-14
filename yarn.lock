@@ -83,10 +83,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-shared/-/workers-shared-0.4.1.tgz#49a1c89ae2f96cdf2c7ac2d1c5bf38d039947617"
   integrity sha512-nYh4r8JwOOjYIdH2zub++CmIKlkYFlpxI1nBHimoiHcytJXD/b7ldJ21TtfzUZMCgI78mxVlymMHA/ReaOxKlA==
 
-"@cloudflare/workers-types@^4.20240806.0":
-  version "4.20240806.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20240806.0.tgz#7ec91b64b1d4ba22e92bb4f62654b4494c2b7707"
-  integrity sha512-8lvgrwXGTZEBsUQJ8YUnMk72Anh9omwr6fqWLw/EwVgcw1nQxs/bfdadBEbdP48l9fWXjE4E5XERLUrrFuEpsg==
+"@cloudflare/workers-types@^4.20240909.0":
+  version "4.20240909.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20240909.0.tgz#0b88e77675f4bd9aa7d3fd4ae7be9676a6d34d53"
+  integrity sha512-4knwtX6efxIsIxawdmPyynU9+S8A78wntU8eUIEldStWP4gNgxGkeWcfCMXulTx8oxr3DU4aevHyld9HGV8VKQ==
 
 "@cspotcode/source-map-support@0.8.1":
   version "0.8.1"
