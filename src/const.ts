@@ -13,6 +13,7 @@ export const NTFY = {
 export const SHOPIFY_STORES = {
 	STORES: [
 		{
+			ID: 'taylor-swift-uk',
 			URL: 'https://qwe-312-uk.myshopify.com',
 			FRIENDLY_NAME: 'Taylor Swift - UK Store',
 			ENABLED: true,
@@ -25,6 +26,7 @@ export const SHOPIFY_STORES = {
 			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
+			ID: 'taylor-swift-us',
 			URL: 'https://ts-merchandise-m.myshopify.com',
 			FRIENDLY_NAME: 'Taylor Swift - US Store',
 			ENABLED: true,
@@ -37,6 +39,7 @@ export const SHOPIFY_STORES = {
 			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
+			ID: 'taylor-swift-de',
 			URL: 'https://de-taylor-swift-prod.myshopify.com',
 			FRIENDLY_NAME: 'Taylor Swift - EU Store',
 			ENABLED: true,
@@ -49,6 +52,7 @@ export const SHOPIFY_STORES = {
 			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
+			ID: 'sabrina-carpenter-us',
 			URL: 'https://sabrina-carpenter-official.myshopify.com',
 			FRIENDLY_NAME: 'Sabrina Carpenter - US Store',
 			ENABLED: false,
@@ -61,6 +65,7 @@ export const SHOPIFY_STORES = {
 			NTFY_ANNOUNCE_TO_GLOBAL_TOPIC: true,
 		},
 		{
+			ID: 'blood-records',
 			URL: 'https://blood-records.myshopify.com',
 			FRIENDLY_NAME: 'Blood Records - Store',
 			ENABLED: false,

@@ -3,4 +3,5 @@ export type Bindings = {
 	NTFY_BEARER: string;
 	NTFY_TOPIC: string;
 	productsDB: D1Database;
+	WORKER_DOMAIN: string;
 };
