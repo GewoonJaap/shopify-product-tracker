@@ -1,6 +1,7 @@
 import { NTFYPriorityType } from '../notification/ntfyPriorityType';
 
 export interface ShopifyStoreConfig {
+	ID: string;
 	URL: string;
 	FRIENDLY_NAME: string;
 	ENABLED: boolean;
