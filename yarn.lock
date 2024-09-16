@@ -1088,10 +1088,10 @@ pkg-types@^1.0.3:
     mlly "^1.2.0"
     pathe "^1.1.0"
 
-postal-mime@^2.2.7:
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/postal-mime/-/postal-mime-2.2.7.tgz#e34ee29d04bb6e19837285a16d36d660ec314904"
-  integrity sha512-13BykdDhBz5QCJ3tVWKW6eTX3ghLqlxm6CxS91AanUptB53+csbIyDW4KdP+IzYZHF+xZ2CkTiBTK+k0/3vR8w==
+postal-mime@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/postal-mime/-/postal-mime-2.2.9.tgz#b095e732aeb692b17da6496359dbeb15831a2a16"
+  integrity sha512-FdRay7ifK2i6wl6431OsRhRS2QMaMJ0PFAQoe3R1auM14Bz+gojqV9/rng6gXK6JZ+XzVS1C8v2QBbvu3M2quA==
 
 postcss@^8.4.38:
   version "8.4.38"
