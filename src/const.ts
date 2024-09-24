@@ -68,7 +68,7 @@ export const SHOPIFY_STORES = {
 			ID: 'stanley-1913-eu',
 			URL: 'https://eu-stanley1913.myshopify.com',
 			FRIENDLY_NAME: 'Stanely 1913 EU - Store',
-			ENABLED: true,
+			ENABLED: false,
 			NOTIFICATION_PRIORITY_SETTINGS: {
 				VERY_IMPORTANT: ['barbie'],
 				VERY_IMPORTANT_TYPE: NTFY.URGENT_PRIORITY,
