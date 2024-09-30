@@ -24,7 +24,7 @@
 		"@types/mustache": "^4.2.5",
 		"hono": "^4.6.1",
 		"mustache": "^4.2.0",
-		"postal-mime": "^2.2.9",
+		"postal-mime": "^2.3.2",
 		"uuid": "^10.0.0"
 	}
 }
